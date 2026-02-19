@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gerador-de-planilha-multi
+  namespace: gerador-de-planilha-multi
+  labels:
+    app: gerador-de-planilha-multi
+    managed-by: backstage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gerador-de-planilha-multi
+  template:
+    metadata:
+      labels:
+        app: gerador-de-planilha-multi
+    spec:
+      containers:
+      - name: gerador-de-planilha-multi
+        image: durellirsd/gerador-de-planilha-multi:v0.0.0
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        env:
+        - name: ENVIRONMENT
+          value: "production"
+        - name: LOG_LEVEL
+          value: "info"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"

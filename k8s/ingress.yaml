@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gerador-de-planilha-multi
+  namespace: gerador-de-planilha-multi
+  labels:
+    app: gerador-de-planilha-multi
+    managed-by: backstage
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gerador-de-planilha-multi.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gerador-de-planilha-multi
+            port:
+              number: 80

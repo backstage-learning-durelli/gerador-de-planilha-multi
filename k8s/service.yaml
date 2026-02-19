@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gerador-de-planilha-multi
+  namespace: gerador-de-planilha-multi
+  labels:
+    app: gerador-de-planilha-multi
+    managed-by: backstage
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  selector:
+    app: gerador-de-planilha-multi

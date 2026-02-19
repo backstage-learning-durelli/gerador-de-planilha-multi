@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: gerador-de-planilha-multi
+  description: Projeto FastAPI criado via Backstage com CI/CD e ArgoCD
+  annotations:
+    github.com/project-slug: backstage-learning-durelli/gerador-de-planilha-multi
+    argocd/app-name: gerador-de-planilha-multi
+    backstage.io/kubernetes-id: gerador-de-planilha-multi
+  labels:
+    system: gerador-de-planilha-multi
+    managed-by: backstage
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default
+  system: gerador-de-planilha-multi
